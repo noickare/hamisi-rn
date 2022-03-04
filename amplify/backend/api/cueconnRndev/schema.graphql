@@ -1,0 +1,38 @@
+
+type Product @model @auth(rules: [{ allow: public, operations: [read]}, { allow: owner }]) {
+  id: ID!
+  name: String!
+  description: String
+  images: [String]
+  price: String!
+  tags: [String]
+  ProductSpace: Space @hasOne
+  streamID: ID! @index(name: "byStream")
+}
+
+type Space @model @auth(rules: [{ allow: public, operations: [read]}, { allow: owner }]) {
+  id: ID!
+  name: String!
+  description: String
+  coverUrl: String
+  userID: ID! @index(name: "byUser")
+  tags: [String]
+}
+
+type Stream @model @auth(rules:[{ allow: public, operations: [read]}, { allow: owner }])  {
+  id: ID!
+  name: String!
+  description: String
+  coverUrl: String
+  StreamSpace: Space! @hasOne
+  tags: [String]
+  Products: [Product] @hasMany(indexName: "byStream", fields: ["id"])
+}
+
+type User @model @auth(rules: [{ allow: public, operations: [read]}, { allow: owner }] ) {
+  id: ID!
+  username: String
+  email: String!
+  avatarUrl: String
+  UserSpaces: [Space] @hasMany(indexName: "byUser", fields: ["id"])
+}

@@ -64,7 +64,7 @@ export default class App extends Component<Props, State> {
           'http://agora-tokens.azurewebsites.net/token',
           {channelName: 'test2', isPublisher: true, userId: 'userId'},
         );
-        console.log(resp.data);
+        // this.setState({token: resp.data.token});
       } catch (error) {
         console.log('error', error);
       }
@@ -120,12 +120,16 @@ export default class App extends Component<Props, State> {
    */
   startCall = async () => {
     // Join Channel using null token and channel name
-    await this._engine?.joinChannel(
-      this.state.token,
-      this.state.channelName,
-      null,
-      0,
-    );
+    try {
+      await this._engine?.joinChannel(
+        this.state.token,
+        this.state.channelName,
+        null,
+        0,
+      );
+    } catch (error) {
+      console.log('error starting call', error);
+    }
   };
 
   /**
@@ -138,7 +142,7 @@ export default class App extends Component<Props, State> {
   };
 
   render() {
-    if (this.state.isLoading || !this.state.token) {
+    if (this.state.isLoading) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ActivityIndicator animating={true} color={Colors.red800} />

@@ -66,9 +66,10 @@ export declare class Stream {
 
 export declare class User {
   readonly id: string;
-  readonly username?: string;
+  readonly name?: string;
   readonly email: string;
   readonly avatarUrl?: string;
+  readonly isVerified: boolean;
   readonly UserSpaces?: (Space | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;

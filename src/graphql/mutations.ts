@@ -390,9 +390,10 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      username
+      name
       email
       avatarUrl
+      isVerified
       UserSpaces {
         items {
           id
@@ -427,9 +428,10 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      username
+      name
       email
       avatarUrl
+      isVerified
       UserSpaces {
         items {
           id
@@ -464,9 +466,10 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      username
+      name
       email
       avatarUrl
+      isVerified
       UserSpaces {
         items {
           id

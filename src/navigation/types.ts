@@ -9,6 +9,9 @@ export type RootStackParamList = {
 export type AuthParamList = {
   SignIn: undefined;
   Register: undefined;
+  Welcome: undefined;
+  ForgotPassword: undefined;
+  VerifyAccount: {email: string};
 };
 
 export type AuthNavProps<T extends keyof AuthParamList> = {

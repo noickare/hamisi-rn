@@ -3,6 +3,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {AuthParamList} from './types';
 import SignInScreen from '../screens/Auth/SignIn';
 import RegisterScreen from '../screens/Auth/Register';
+import WelcomeScreen from '../screens/Auth/Welcome';
+import ForgotPasswordScreen from '../screens/Auth/ForgotPassword';
+import VerifyAccountScreen from '../screens/Auth/Verify';
 
 interface AuthStackProps {}
 
@@ -14,7 +17,14 @@ export const AuthStack: React.FC<AuthStackProps> = ({}) => {
       screenOptions={{
         header: () => null,
       }}
-      initialRouteName="SignIn">
+      initialRouteName="Welcome">
+      <Stack.Screen
+        options={{
+          headerTitle: 'Welcome',
+        }}
+        name="Welcome"
+        component={WelcomeScreen}
+      />
       <Stack.Screen
         options={{
           headerTitle: 'Sign In',
@@ -24,10 +34,24 @@ export const AuthStack: React.FC<AuthStackProps> = ({}) => {
       />
       <Stack.Screen
         options={{
+          headerTitle: 'Verify Account',
+        }}
+        name="VerifyAccount"
+        component={VerifyAccountScreen}
+      />
+      <Stack.Screen
+        options={{
           headerTitle: 'Sign Up',
         }}
         name="Register"
         component={RegisterScreen}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: 'Forgot Password',
+        }}
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
       />
     </Stack.Navigator>
   );

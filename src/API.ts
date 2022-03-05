@@ -234,27 +234,37 @@ export type DeleteStreamInput = {
 
 export type CreateUserInput = {
   id?: string | null,
-  username?: string | null,
+  name?: string | null,
   email: string,
   avatarUrl?: string | null,
+  isVerified: boolean,
   _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
-  username?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   email?: ModelStringInput | null,
   avatarUrl?: ModelStringInput | null,
+  isVerified?: ModelBooleanInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type User = {
   __typename: "User",
   id: string,
-  username?: string | null,
+  name?: string | null,
   email: string,
   avatarUrl?: string | null,
+  isVerified: boolean,
   UserSpaces?: ModelSpaceConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -273,9 +283,10 @@ export type ModelSpaceConnection = {
 
 export type UpdateUserInput = {
   id: string,
-  username?: string | null,
+  name?: string | null,
   email?: string | null,
   avatarUrl?: string | null,
+  isVerified?: boolean | null,
   _version?: number | null,
 };
 
@@ -331,9 +342,10 @@ export type ModelStreamConnection = {
 
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
-  username?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   email?: ModelStringInput | null,
   avatarUrl?: ModelStringInput | null,
+  isVerified?: ModelBooleanInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -769,9 +781,10 @@ export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {
@@ -810,9 +823,10 @@ export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {
@@ -851,9 +865,10 @@ export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {
@@ -1311,9 +1326,10 @@ export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {
@@ -1355,9 +1371,10 @@ export type ListUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      username?: string | null,
+      name?: string | null,
       email: string,
       avatarUrl?: string | null,
+      isVerified: boolean,
       UserSpaces?:  {
         __typename: "ModelSpaceConnection",
         items:  Array< {
@@ -1403,9 +1420,10 @@ export type SyncUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      username?: string | null,
+      name?: string | null,
       email: string,
       avatarUrl?: string | null,
+      isVerified: boolean,
       UserSpaces?:  {
         __typename: "ModelSpaceConnection",
         items:  Array< {
@@ -1851,9 +1869,10 @@ export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {
@@ -1891,9 +1910,10 @@ export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {
@@ -1931,9 +1951,10 @@ export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
     id: string,
-    username?: string | null,
+    name?: string | null,
     email: string,
     avatarUrl?: string | null,
+    isVerified: boolean,
     UserSpaces?:  {
       __typename: "ModelSpaceConnection",
       items:  Array< {

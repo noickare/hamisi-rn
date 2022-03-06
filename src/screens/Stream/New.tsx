@@ -1,13 +1,13 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Button, Text, useTheme} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
 import {TimePickerModal, DatePickerInput} from 'react-native-paper-dates';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import BottomSheet from 'reanimated-bottom-sheet';
+import {launchImageLibrary} from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+import uuid from 'react-native-uuid';
 import Header from '../../components/Header';
 import TextInput from '../../components/Input/TextInput';
-import {getCameraPermissions} from '../../utils/permissions';
 
 const NewStreamScreen = () => {
   const [title, setTitle] = useState({value: '', error: ''});
@@ -16,52 +16,6 @@ const NewStreamScreen = () => {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   const [time, setTime] = useState({hours: 0, minutes: 0});
-  const {colors} = useTheme();
-
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  const renderBottomSheetContent = () => (
-    <View
-      style={{
-        backgroundColor: colors.surface,
-        padding: 16,
-      }}>
-      <Button
-        mode="contained"
-        onPress={async () => {
-          try {
-            const gallaeryRes = await launchImageLibrary({
-              selectionLimit: 0,
-              mediaType: 'photo',
-              includeBase64: false,
-            });
-            console.log(gallaeryRes);
-          } catch (error) {
-            console.log(error);
-          }
-        }}
-        style={{marginBottom: 10}}>
-        Pick from gallery
-      </Button>
-      <Button
-        mode="contained"
-        onPress={async () => {
-          try {
-            await getCameraPermissions();
-            const cameraRes = await launchCamera({
-              saveToPhotos: true,
-              mediaType: 'photo',
-              includeBase64: false,
-            });
-            console.log(cameraRes);
-          } catch (error) {
-            console.log(error);
-          }
-        }}>
-        Camera
-      </Button>
-    </View>
-  );
 
   const onDismiss = React.useCallback(() => {
     setTimePickerVisible(false);
@@ -132,18 +86,41 @@ const NewStreamScreen = () => {
             {time.hours} : {time.minutes}
           </Text>
         </View>
-        <Button onPress={() => bottomSheetRef.current?.snapTo(0)}>
+        <Button
+          onPress={async () => {
+            try {
+              const galleryRes = await launchImageLibrary({
+                selectionLimit: 0,
+                mediaType: 'photo',
+                includeBase64: false,
+              });
+              const imgNameArray =
+                galleryRes.assets && galleryRes.assets[0].fileName?.split('.');
+              const imgExt =
+                imgNameArray && imgNameArray[imgNameArray.length - 1];
+              const reference = storage().ref(
+                title.value
+                  ? title.value + `-${uuid.v4()}` + `.${imgExt}`
+                  : uuid.v4().toString() + `.${imgExt}`,
+              );
+              if (galleryRes.assets) {
+                const uploadTask = await reference.putFile(
+                  galleryRes.assets[0].uri as string,
+                );
+                uploadTask.task.on('state_changed', taskSnapshot => {
+                  console.log(
+                    `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+                  );
+                });
+                console.log(galleryRes);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }}>
           Upload Cover
         </Button>
       </KeyboardAwareScrollView>
-      <BottomSheet
-        ref={bottomSheetRef}
-        snapPoints={['20%', '10%', 0]}
-        initialSnap={2}
-        borderRadius={10}
-        renderContent={renderBottomSheetContent}
-        enabledContentGestureInteraction={false}
-      />
     </>
   );
 };

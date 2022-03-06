@@ -24,3 +24,22 @@ export default async function requestCameraAndAudioPermission() {
     console.warn(err);
   }
 }
+
+export async function getCameraPermissions() {
+  const isGranted = await PermissionsAndroid.check(
+    PermissionsAndroid.PERMISSIONS.CAMERA,
+  );
+
+  if (isGranted) {
+    console.log('already granted');
+  } else {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('granted');
+    } else {
+      throw new Error('Camera permissions denied');
+    }
+  }
+}

@@ -1,5 +1,4 @@
-
-type Product @model @auth(rules: [{ allow: public, operations: [read]}, { allow: owner }]) {
+type Product @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   name: String!
   description: String
@@ -10,7 +9,7 @@ type Product @model @auth(rules: [{ allow: public, operations: [read]}, { allow:
   streamID: ID! @index(name: "byStream")
 }
 
-type Space @model @auth(rules: [{ allow: public, operations: [read]}, { allow: owner }]) {
+type Space @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   name: String!
   description: String
@@ -19,7 +18,7 @@ type Space @model @auth(rules: [{ allow: public, operations: [read]}, { allow: o
   tags: [String]
 }
 
-type Stream @model @auth(rules:[{ allow: public, operations: [read]}, { allow: owner }])  {
+type Stream @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   name: String!
   description: String
@@ -29,7 +28,7 @@ type Stream @model @auth(rules:[{ allow: public, operations: [read]}, { allow: o
   Products: [Product] @hasMany(indexName: "byStream", fields: ["id"])
 }
 
-type User @model @auth(rules: [{ allow: public, operations: [read]}, { allow: owner }] ) {
+type User @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   name: String
   email: String!
@@ -37,3 +36,4 @@ type User @model @auth(rules: [{ allow: public, operations: [read]}, { allow: ow
   isVerified: Boolean!
   UserSpaces: [Space] @hasMany(indexName: "byUser", fields: ["id"])
 }
+ 

@@ -23,7 +23,6 @@ export const getProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -32,7 +31,6 @@ export const getProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
@@ -62,7 +60,6 @@ export const listProducts = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         streamID
         createdAt
@@ -71,7 +68,6 @@ export const listProducts = /* GraphQL */ `
         _deleted
         _lastChangedAt
         productProductSpaceId
-        owner
       }
       nextToken
       startedAt
@@ -110,7 +106,6 @@ export const syncProducts = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         streamID
         createdAt
@@ -119,7 +114,6 @@ export const syncProducts = /* GraphQL */ `
         _deleted
         _lastChangedAt
         productProductSpaceId
-        owner
       }
       nextToken
       startedAt
@@ -140,7 +134,6 @@ export const getSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -163,7 +156,6 @@ export const listSpaces = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt
@@ -195,7 +187,6 @@ export const syncSpaces = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt
@@ -221,7 +212,6 @@ export const getStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -244,7 +234,6 @@ export const getStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -253,7 +242,6 @@ export const getStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -264,7 +252,6 @@ export const getStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
@@ -292,7 +279,6 @@ export const listStreams = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         tags
         Products {
@@ -310,7 +296,6 @@ export const listStreams = /* GraphQL */ `
             _deleted
             _lastChangedAt
             productProductSpaceId
-            owner
           }
           nextToken
           startedAt
@@ -321,7 +306,6 @@ export const listStreams = /* GraphQL */ `
         _deleted
         _lastChangedAt
         streamStreamSpaceId
-        owner
       }
       nextToken
       startedAt
@@ -358,7 +342,6 @@ export const syncStreams = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         tags
         Products {
@@ -376,7 +359,6 @@ export const syncStreams = /* GraphQL */ `
             _deleted
             _lastChangedAt
             productProductSpaceId
-            owner
           }
           nextToken
           startedAt
@@ -387,7 +369,6 @@ export const syncStreams = /* GraphQL */ `
         _deleted
         _lastChangedAt
         streamStreamSpaceId
-        owner
       }
       nextToken
       startedAt
@@ -415,7 +396,6 @@ export const getUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -425,7 +405,6 @@ export const getUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -455,7 +434,6 @@ export const listUsers = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           nextToken
           startedAt
@@ -465,7 +443,6 @@ export const listUsers = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt
@@ -504,7 +481,6 @@ export const syncUsers = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           nextToken
           startedAt
@@ -514,7 +490,6 @@ export const syncUsers = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt

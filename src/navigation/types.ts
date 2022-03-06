@@ -31,6 +31,7 @@ export type StreamParamList = {
 
 export type HomeParamList = {
   Home: undefined;
+  NewStream: undefined;
 } & StreamParamList;
 
 export type HomeStackNavProps<T extends keyof HomeParamList> = {

@@ -1,73 +1,75 @@
 import React, {useState} from 'react';
-import {Auth} from 'aws-amplify';
-import {CognitoUser} from 'amazon-cognito-identity-js';
-import {API} from 'aws-amplify';
-import * as mutations from '../graphql/mutations';
-import {User} from '../models';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import {IUser} from '../models/user';
 
 export const AuthContext = React.createContext<{
-  loggedInUser: null | CognitoUser;
+  loggedInUser: null | IUser;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   register: (email: string, password: string) => Promise<void>;
-  verify: (email: string, code: string) => Promise<void>;
+  getFirestoreDetails: () => Promise<void>;
 }>({
   loggedInUser: null,
   login: async (_email: string, _password: string) => {},
   logout: () => {},
   register: async (_email: string, _password: string) => {},
-  verify: async () => {},
+  getFirestoreDetails: async () => {},
 });
 
 interface AuthProviderProps {}
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
-  const [cUser, setCUser] = useState<CognitoUser | null>(null);
+  const [firebaseUser, setFirebaseUser] =
+    useState<FirebaseAuthTypes.User | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   async function signUp(email: string, password: string) {
     try {
-      const {userSub} = await Auth.signUp({
-        username: email,
+      const newUser = await auth().createUserWithEmailAndPassword(
+        email,
         password,
-        attributes: {
-          email, // optional
-        },
+      );
+      await firestore().collection('Users').doc(newUser.user.uid).set({
+        email: newUser.user.email,
+        emailVerified: newUser.user.emailVerified,
+        createdAt: firestore.Timestamp.now(),
       });
-      const userDetails: User = {
-        id: userSub,
-        email: email,
-        isVerified: false,
-      };
-      const newUser = await API.graphql({
-        query: mutations.createUser,
-        variables: {input: userDetails},
-      });
-      console.log(newUser);
+      setFirebaseUser(newUser.user);
+      await getFirestoreDetails();
+      console.log(newUser.user);
     } catch (error) {
       console.log('error signing up:', error);
     }
   }
 
-  async function verifySignup(email: string, code: string) {
-    try {
-      await Auth.confirmSignUp(email, code);
-    } catch (error) {
-      console.log('error verifying', error);
+  async function getFirestoreDetails() {
+    const userSnapshot = await firestore()
+      .collection('Users')
+      .doc(firebaseUser?.uid)
+      .get();
+    if (userSnapshot.exists) {
+      const fbUser = userSnapshot.data() as IUser;
+      setUser(fbUser);
     }
   }
 
   async function login(email: string, password: string) {
     try {
-      const userRes = (await Auth.signIn(email, password)) as CognitoUser;
-      setCUser(userRes);
-    } catch (error) {
-      console.log('error verifying', error);
+      const userRes = await auth().signInWithEmailAndPassword(email, password);
+      setFirebaseUser(userRes.user);
+      await getFirestoreDetails();
+      console.log(userRes);
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
 
   async function signOut() {
     try {
-      await Auth.signOut();
+      await auth().signOut();
+      setUser(null);
+      setFirebaseUser(null);
     } catch (error) {
       console.log('error signing out: ', error);
     }
@@ -76,11 +78,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   return (
     <AuthContext.Provider
       value={{
-        loggedInUser: cUser,
+        loggedInUser: user,
         register: signUp,
-        verify: verifySignup,
         login: login,
         logout: signOut,
+        getFirestoreDetails,
       }}>
       {children}
     </AuthContext.Provider>

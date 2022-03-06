@@ -1,29 +1,23 @@
 import React, {useState, useEffect} from 'react';
-import {Auth} from 'aws-amplify';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+
 import Loader from '../components/Loader';
 import {HomeStack} from './HomeStack';
 import {AuthStack} from './AuthStack';
 
 function RootNavigator() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  async function checkAuthState() {
-    setIsLoading(true);
-    try {
-      await Auth.currentAuthenticatedUser();
-      console.log('✅ User is signed in');
-      setIsLoggedIn(true);
-      setIsLoading(false);
-    } catch (err) {
-      console.log('❌ User is not signed in');
-      setIsLoggedIn(false);
-      setIsLoading(false);
-    }
-  }
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   useEffect(() => {
-    checkAuthState();
+    auth().onAuthStateChanged(userState => {
+      setUser(userState);
+
+      if (isLoading) {
+        setIsLoading(false);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
@@ -34,7 +28,7 @@ function RootNavigator() {
     );
   }
 
-  return <>{isLoggedIn ? <HomeStack /> : <AuthStack />}</>;
+  return <>{user ? <HomeStack /> : <AuthStack />}</>;
 }
 
 export default RootNavigator;

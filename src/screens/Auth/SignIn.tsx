@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useTheme} from 'react-native-paper';
+import {useTheme, Snackbar} from 'react-native-paper';
 import {AuthParamList} from '../../navigation/types';
 import Background from '../../components/Background/Background';
 import BackButton from '../../components/Buttons/BackButton';
@@ -12,18 +12,22 @@ import TextInput from '../../components/Input/TextInput';
 import {emailValidator, passwordValidator} from '../../utils/validators';
 // import {AuthContext} from '../../context/AuthProvider';
 import Button from '../../components/Buttons/Button';
+import {AuthContext} from '../../context/AuthProvider';
 
 type authScreenProp = StackNavigationProp<AuthParamList, 'SignIn'>;
 
 const SignIn = () => {
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSigninError, setIsSigninError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigation = useNavigation<authScreenProp>();
   const {colors} = useTheme();
-  // const {login} = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
 
-  const _onLoginPressed = () => {
+  const _onLoginPressed = async () => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
@@ -32,8 +36,17 @@ const SignIn = () => {
       setPassword({...password, error: passwordError});
       return;
     }
-    console.log(email, password);
-    // login();
+    try {
+      console.log('submitting');
+      setIsSubmitting(true);
+      await login(email.value, password.value);
+      setIsSubmitting(false);
+    } catch (error: any) {
+      setIsSubmitting(false);
+      setErrorMessage(error.message);
+      setIsSigninError(true);
+      console.log('signinerrror', error);
+    }
   };
 
   return (
@@ -72,7 +85,7 @@ const SignIn = () => {
         </TouchableOpacity>
       </View>
 
-      <Button mode="contained" onPress={_onLoginPressed}>
+      <Button mode="contained" onPress={_onLoginPressed} loading={isSubmitting}>
         Login
       </Button>
 
@@ -82,6 +95,17 @@ const SignIn = () => {
           <Text style={[styles.link, {color: colors.primary}]}>Sign up</Text>
         </TouchableOpacity>
       </View>
+      <Snackbar
+        visible={isSigninError}
+        onDismiss={() => setIsSigninError(false)}
+        action={{
+          label: 'Signin Error',
+          onPress: () => {
+            // Do something
+          },
+        }}>
+        {errorMessage}
+      </Snackbar>
     </Background>
   );
 };

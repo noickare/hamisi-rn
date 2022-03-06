@@ -26,7 +26,6 @@ export const createProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -35,7 +34,6 @@ export const createProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
@@ -63,7 +61,6 @@ export const updateProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -72,7 +69,6 @@ export const updateProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
@@ -100,7 +96,6 @@ export const deleteProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -109,7 +104,6 @@ export const deleteProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
@@ -130,7 +124,6 @@ export const createSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -151,7 +144,6 @@ export const updateSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -172,7 +164,6 @@ export const deleteSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -198,7 +189,6 @@ export const createStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -221,7 +211,6 @@ export const createStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -230,7 +219,6 @@ export const createStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -241,7 +229,6 @@ export const createStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
@@ -267,7 +254,6 @@ export const updateStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -290,7 +276,6 @@ export const updateStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -299,7 +284,6 @@ export const updateStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -310,7 +294,6 @@ export const updateStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
@@ -336,7 +319,6 @@ export const deleteStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -359,7 +341,6 @@ export const deleteStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -368,7 +349,6 @@ export const deleteStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -379,7 +359,6 @@ export const deleteStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
@@ -407,7 +386,6 @@ export const createUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -417,7 +395,6 @@ export const createUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -445,7 +422,6 @@ export const updateUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -455,7 +431,6 @@ export const updateUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -483,7 +458,6 @@ export const deleteUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -493,7 +467,6 @@ export const deleteUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;

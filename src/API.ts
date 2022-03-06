@@ -99,7 +99,6 @@ export type Product = {
   _deleted?: boolean | null,
   _lastChangedAt: number,
   productProductSpaceId?: string | null,
-  owner?: string | null,
 };
 
 export type Space = {
@@ -115,7 +114,6 @@ export type Space = {
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  owner?: string | null,
 };
 
 export type UpdateProductInput = {
@@ -207,7 +205,6 @@ export type Stream = {
   _deleted?: boolean | null,
   _lastChangedAt: number,
   streamStreamSpaceId: string,
-  owner?: string | null,
 };
 
 export type ModelProductConnection = {
@@ -271,7 +268,6 @@ export type User = {
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  owner?: string | null,
 };
 
 export type ModelSpaceConnection = {
@@ -385,7 +381,6 @@ export type CreateProductMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -394,7 +389,6 @@ export type CreateProductMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -425,7 +419,6 @@ export type UpdateProductMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -434,7 +427,6 @@ export type UpdateProductMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -465,7 +457,6 @@ export type DeleteProductMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -474,7 +465,6 @@ export type DeleteProductMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -497,7 +487,6 @@ export type CreateSpaceMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -520,7 +509,6 @@ export type UpdateSpaceMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -543,7 +531,6 @@ export type DeleteSpaceMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -572,7 +559,6 @@ export type CreateStreamMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -598,7 +584,6 @@ export type CreateStreamMutation = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -607,7 +592,6 @@ export type CreateStreamMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -618,7 +602,6 @@ export type CreateStreamMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -647,7 +630,6 @@ export type UpdateStreamMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -673,7 +655,6 @@ export type UpdateStreamMutation = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -682,7 +663,6 @@ export type UpdateStreamMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -693,7 +673,6 @@ export type UpdateStreamMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -722,7 +701,6 @@ export type DeleteStreamMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -748,7 +726,6 @@ export type DeleteStreamMutation = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -757,7 +734,6 @@ export type DeleteStreamMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -768,7 +744,6 @@ export type DeleteStreamMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -800,7 +775,6 @@ export type CreateUserMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -810,7 +784,6 @@ export type CreateUserMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -842,7 +815,6 @@ export type UpdateUserMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -852,7 +824,6 @@ export type UpdateUserMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -884,7 +855,6 @@ export type DeleteUserMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -894,7 +864,6 @@ export type DeleteUserMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -924,7 +893,6 @@ export type GetProductQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -933,7 +901,6 @@ export type GetProductQuery = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -967,7 +934,6 @@ export type ListProductsQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null,
       streamID: string,
       createdAt: string,
@@ -976,7 +942,6 @@ export type ListProductsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       productProductSpaceId?: string | null,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1014,7 +979,6 @@ export type SyncProductsQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null,
       streamID: string,
       createdAt: string,
@@ -1023,7 +987,6 @@ export type SyncProductsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       productProductSpaceId?: string | null,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1048,7 +1011,6 @@ export type GetSpaceQuery = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -1074,7 +1036,6 @@ export type ListSpacesQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1104,7 +1065,6 @@ export type SyncSpacesQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1135,7 +1095,6 @@ export type GetStreamQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -1161,7 +1120,6 @@ export type GetStreamQuery = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -1170,7 +1128,6 @@ export type GetStreamQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1181,7 +1138,6 @@ export type GetStreamQuery = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1213,7 +1169,6 @@ export type ListStreamsQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       tags?: Array< string | null > | null,
       Products?:  {
@@ -1233,7 +1188,6 @@ export type ListStreamsQuery = {
           _deleted?: boolean | null,
           _lastChangedAt: number,
           productProductSpaceId?: string | null,
-          owner?: string | null,
         } | null >,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1244,7 +1198,6 @@ export type ListStreamsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       streamStreamSpaceId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1280,7 +1233,6 @@ export type SyncStreamsQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       tags?: Array< string | null > | null,
       Products?:  {
@@ -1300,7 +1252,6 @@ export type SyncStreamsQuery = {
           _deleted?: boolean | null,
           _lastChangedAt: number,
           productProductSpaceId?: string | null,
-          owner?: string | null,
         } | null >,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1311,7 +1262,6 @@ export type SyncStreamsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       streamStreamSpaceId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1345,7 +1295,6 @@ export type GetUserQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1355,7 +1304,6 @@ export type GetUserQuery = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -1390,7 +1338,6 @@ export type ListUsersQuery = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null >,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1400,7 +1347,6 @@ export type ListUsersQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1439,7 +1385,6 @@ export type SyncUsersQuery = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null >,
         nextToken?: string | null,
         startedAt?: number | null,
@@ -1449,15 +1394,10 @@ export type SyncUsersQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
   } | null,
-};
-
-export type OnCreateProductSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnCreateProductSubscription = {
@@ -1482,7 +1422,6 @@ export type OnCreateProductSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -1491,12 +1430,7 @@ export type OnCreateProductSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
-};
-
-export type OnUpdateProductSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnUpdateProductSubscription = {
@@ -1521,7 +1455,6 @@ export type OnUpdateProductSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -1530,12 +1463,7 @@ export type OnUpdateProductSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
-};
-
-export type OnDeleteProductSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnDeleteProductSubscription = {
@@ -1560,7 +1488,6 @@ export type OnDeleteProductSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null,
     streamID: string,
     createdAt: string,
@@ -1569,12 +1496,7 @@ export type OnDeleteProductSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     productProductSpaceId?: string | null,
-    owner?: string | null,
   } | null,
-};
-
-export type OnCreateSpaceSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnCreateSpaceSubscription = {
@@ -1591,12 +1513,7 @@ export type OnCreateSpaceSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
-};
-
-export type OnUpdateSpaceSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnUpdateSpaceSubscription = {
@@ -1613,12 +1530,7 @@ export type OnUpdateSpaceSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
-};
-
-export type OnDeleteSpaceSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnDeleteSpaceSubscription = {
@@ -1635,12 +1547,7 @@ export type OnDeleteSpaceSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
-};
-
-export type OnCreateStreamSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnCreateStreamSubscription = {
@@ -1663,7 +1570,6 @@ export type OnCreateStreamSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -1689,7 +1595,6 @@ export type OnCreateStreamSubscription = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -1698,7 +1603,6 @@ export type OnCreateStreamSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1709,12 +1613,7 @@ export type OnCreateStreamSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
-};
-
-export type OnUpdateStreamSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnUpdateStreamSubscription = {
@@ -1737,7 +1636,6 @@ export type OnUpdateStreamSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -1763,7 +1661,6 @@ export type OnUpdateStreamSubscription = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -1772,7 +1669,6 @@ export type OnUpdateStreamSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1783,12 +1679,7 @@ export type OnUpdateStreamSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
-};
-
-export type OnDeleteStreamSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnDeleteStreamSubscription = {
@@ -1811,7 +1702,6 @@ export type OnDeleteStreamSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     tags?: Array< string | null > | null,
     Products?:  {
@@ -1837,7 +1727,6 @@ export type OnDeleteStreamSubscription = {
           _version: number,
           _deleted?: boolean | null,
           _lastChangedAt: number,
-          owner?: string | null,
         } | null,
         streamID: string,
         createdAt: string,
@@ -1846,7 +1735,6 @@ export type OnDeleteStreamSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         productProductSpaceId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1857,12 +1745,7 @@ export type OnDeleteStreamSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     streamStreamSpaceId: string,
-    owner?: string | null,
   } | null,
-};
-
-export type OnCreateUserSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnCreateUserSubscription = {
@@ -1888,7 +1771,6 @@ export type OnCreateUserSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1898,12 +1780,7 @@ export type OnCreateUserSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
-};
-
-export type OnUpdateUserSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnUpdateUserSubscription = {
@@ -1929,7 +1806,6 @@ export type OnUpdateUserSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1939,12 +1815,7 @@ export type OnUpdateUserSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
-};
-
-export type OnDeleteUserSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnDeleteUserSubscription = {
@@ -1970,7 +1841,6 @@ export type OnDeleteUserSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1980,6 +1850,5 @@ export type OnDeleteUserSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };

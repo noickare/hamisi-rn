@@ -13,19 +13,22 @@ import TextInput from '../../components/Input/TextInput';
 import Logo from '../../components/Logo';
 import {AuthParamList} from '../../navigation/types';
 import {codevalidator} from '../../utils/validators';
+// import {AuthContext} from '../../context/AuthProvider';
 
 type authScreenProp = StackNavigationProp<AuthParamList, 'VerifyAccount'>;
 
 const VerifyAccountScreen = () => {
   const navigation = useNavigation<authScreenProp>();
+  // const {verify, verifyUser} = useContext(AuthContext);
   const {colors} = useTheme();
   const route = useRoute();
   const [verificationCode, setVerificationCode] = useState({
     value: '',
     error: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const _onSendPressed = () => {
+  const _onSendPressed = async () => {
     const codeError = codevalidator(verificationCode.value);
 
     if (codeError) {
@@ -33,8 +36,17 @@ const VerifyAccountScreen = () => {
       console.log('verificationCode', verificationCode);
       return;
     }
-
-    navigation.navigate('SignIn');
+    setIsSubmitting(true);
+    try {
+      // @ts-ignore
+      await verify(route.params.email, verificationCode.value);
+      // await verifyUser();
+      setIsSubmitting(false);
+      navigation.navigate('SignIn');
+    } catch (error) {
+      setIsSubmitting(false);
+      console.log('verification error', error);
+    }
   };
 
   return (
@@ -57,7 +69,11 @@ const VerifyAccountScreen = () => {
         keyboardType="number-pad"
       />
 
-      <Button mode="contained" onPress={_onSendPressed} style={styles.button}>
+      <Button
+        mode="contained"
+        onPress={_onSendPressed}
+        style={styles.button}
+        loading={isSubmitting}>
         Verify
       </Button>
 

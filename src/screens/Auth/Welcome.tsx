@@ -11,7 +11,26 @@ import Button from '../../components/Buttons/Button';
 type authScreenProp = StackNavigationProp<AuthParamList, 'Welcome'>;
 
 const WelcomeScreen = () => {
+  // const {loading, error, data} = useQuery(gql(queries.listUsers));
+  // const [addUser, {data, loading, error}] = useMutation(
+  //   gql(mutations.createUser),
+  // );
   const navigation = useNavigation<authScreenProp>();
+
+  // if (loading) {
+  //   return (
+  //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  //       <Loader />
+  //     </View>
+  //   );
+  // }
+
+  // if (error) {
+  //   console.log('gql error', error);
+  // }
+
+  // console.log('data', data);
+
   return (
     <Background>
       <Logo />
@@ -24,6 +43,15 @@ const WelcomeScreen = () => {
       <Button mode="outlined" onPress={() => navigation.navigate('Register')}>
         Sign Up
       </Button>
+      {/* <Button
+        mode="outlined"
+        onPress={async () => {
+          await addUser({
+            variables: {input: {email: 'lili@me.com', isVerified: true}},
+          });
+        }}>
+        Test Mutation
+      </Button> */}
     </Background>
   );
 };

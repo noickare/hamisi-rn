@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateProduct = /* GraphQL */ `
-  subscription OnCreateProduct($owner: String) {
-    onCreateProduct(owner: $owner) {
+  subscription OnCreateProduct {
+    onCreateProduct {
       id
       name
       description
@@ -23,7 +23,6 @@ export const onCreateProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -32,13 +31,12 @@ export const onCreateProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
 export const onUpdateProduct = /* GraphQL */ `
-  subscription OnUpdateProduct($owner: String) {
-    onUpdateProduct(owner: $owner) {
+  subscription OnUpdateProduct {
+    onUpdateProduct {
       id
       name
       description
@@ -57,7 +55,6 @@ export const onUpdateProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -66,13 +63,12 @@ export const onUpdateProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
 export const onDeleteProduct = /* GraphQL */ `
-  subscription OnDeleteProduct($owner: String) {
-    onDeleteProduct(owner: $owner) {
+  subscription OnDeleteProduct {
+    onDeleteProduct {
       id
       name
       description
@@ -91,7 +87,6 @@ export const onDeleteProduct = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       streamID
       createdAt
@@ -100,13 +95,12 @@ export const onDeleteProduct = /* GraphQL */ `
       _deleted
       _lastChangedAt
       productProductSpaceId
-      owner
     }
   }
 `;
 export const onCreateSpace = /* GraphQL */ `
-  subscription OnCreateSpace($owner: String) {
-    onCreateSpace(owner: $owner) {
+  subscription OnCreateSpace {
+    onCreateSpace {
       id
       name
       description
@@ -118,13 +112,12 @@ export const onCreateSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
 export const onUpdateSpace = /* GraphQL */ `
-  subscription OnUpdateSpace($owner: String) {
-    onUpdateSpace(owner: $owner) {
+  subscription OnUpdateSpace {
+    onUpdateSpace {
       id
       name
       description
@@ -136,13 +129,12 @@ export const onUpdateSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
 export const onDeleteSpace = /* GraphQL */ `
-  subscription OnDeleteSpace($owner: String) {
-    onDeleteSpace(owner: $owner) {
+  subscription OnDeleteSpace {
+    onDeleteSpace {
       id
       name
       description
@@ -154,13 +146,12 @@ export const onDeleteSpace = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
 export const onCreateStream = /* GraphQL */ `
-  subscription OnCreateStream($owner: String) {
-    onCreateStream(owner: $owner) {
+  subscription OnCreateStream {
+    onCreateStream {
       id
       name
       description
@@ -177,7 +168,6 @@ export const onCreateStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -200,7 +190,6 @@ export const onCreateStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -209,7 +198,6 @@ export const onCreateStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -220,13 +208,12 @@ export const onCreateStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
 export const onUpdateStream = /* GraphQL */ `
-  subscription OnUpdateStream($owner: String) {
-    onUpdateStream(owner: $owner) {
+  subscription OnUpdateStream {
+    onUpdateStream {
       id
       name
       description
@@ -243,7 +230,6 @@ export const onUpdateStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -266,7 +252,6 @@ export const onUpdateStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -275,7 +260,6 @@ export const onUpdateStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -286,13 +270,12 @@ export const onUpdateStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
 export const onDeleteStream = /* GraphQL */ `
-  subscription OnDeleteStream($owner: String) {
-    onDeleteStream(owner: $owner) {
+  subscription OnDeleteStream {
+    onDeleteStream {
       id
       name
       description
@@ -309,7 +292,6 @@ export const onDeleteStream = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       tags
       Products {
@@ -332,7 +314,6 @@ export const onDeleteStream = /* GraphQL */ `
             _version
             _deleted
             _lastChangedAt
-            owner
           }
           streamID
           createdAt
@@ -341,7 +322,6 @@ export const onDeleteStream = /* GraphQL */ `
           _deleted
           _lastChangedAt
           productProductSpaceId
-          owner
         }
         nextToken
         startedAt
@@ -352,13 +332,12 @@ export const onDeleteStream = /* GraphQL */ `
       _deleted
       _lastChangedAt
       streamStreamSpaceId
-      owner
     }
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser {
+    onCreateUser {
       id
       name
       email
@@ -377,7 +356,6 @@ export const onCreateUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -387,13 +365,12 @@ export const onCreateUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
       name
       email
@@ -412,7 +389,6 @@ export const onUpdateUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -422,13 +398,12 @@ export const onUpdateUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
       name
       email
@@ -447,7 +422,6 @@ export const onDeleteUser = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         nextToken
         startedAt
@@ -457,7 +431,6 @@ export const onDeleteUser = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;

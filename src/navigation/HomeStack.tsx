@@ -6,6 +6,7 @@ import {Text, TouchableOpacity} from 'react-native';
 import EditStreamScreen from '../screens/Stream/Edit';
 import StreamScreen from '../screens/Stream/Stream';
 import HomeScreen from '../screens/Home';
+import NewStreamScreen from '../screens/Stream/New';
 
 interface HomeStackProps {}
 
@@ -21,6 +22,13 @@ export const HomeStack: React.FC<HomeStackProps> = ({}) => {
         })}
         name="EditStream"
         component={EditStreamScreen}
+      />
+      <Stack.Screen
+        options={() => ({
+          headerTitle: 'Create Stream',
+        })}
+        name="NewStream"
+        component={NewStreamScreen}
       />
       <Stack.Screen
         options={({route}) => ({

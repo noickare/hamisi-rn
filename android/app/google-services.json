@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "151596128119",
+    "project_id": "clueconn-73e93",
+    "storage_bucket": "clueconn-73e93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151596128119:android:eacea3511e10a2e8763372",
+        "android_client_info": {
+          "package_name": "com.clueconn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151596128119-skg2nsdvjths4ldo6o3h949k5hhruusc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clueconn",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "151596128119-4t5l23j9gqo7to18t95dc41idjgq1giu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-X2xSInptb5zQ5Gz9bStp4u8Iy6oV6co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151596128119-4t5l23j9gqo7to18t95dc41idjgq1giu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151596128119-6o3oioe0uh9v3ulluvbj9jnk6v5ti26g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.clueconn.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

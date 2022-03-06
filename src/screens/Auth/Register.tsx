@@ -21,6 +21,7 @@ const RegisterScreen = () => {
   const {colors} = useTheme();
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const _onSignUpPressed = async () => {
     const emailError = emailValidator(email.value);
@@ -31,9 +32,15 @@ const RegisterScreen = () => {
       setPassword({...password, error: passwordError});
       return;
     }
-    await register(email.value, password.value);
-
-    navigation.navigate('VerifyAccount', {email: email.value});
+    try {
+      setIsSubmitting(true);
+      await register(email.value, password.value);
+      setIsSubmitting(false);
+      // navigation.navigate('VerifyAccount', {email: email.value});
+    } catch (error) {
+      setIsSubmitting(false);
+      console.log('error signup', error);
+    }
   };
 
   return (
@@ -66,7 +73,11 @@ const RegisterScreen = () => {
         secureTextEntry
       />
 
-      <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
+      <Button
+        mode="contained"
+        onPress={_onSignUpPressed}
+        style={styles.button}
+        loading={isSubmitting}>
         Sign Up
       </Button>
 

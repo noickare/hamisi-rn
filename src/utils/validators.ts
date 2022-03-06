@@ -28,7 +28,7 @@ export const namevalidator = (name: string) => {
 };
 
 export const codevalidator = (code: string) => {
-  if (!code || code.toString().length <= 4 || code.toString().length > 4) {
+  if (!code || code.toString().length < 6 || code.toString().length > 6) {
     return 'Invalid Code';
   }
 

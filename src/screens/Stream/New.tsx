@@ -1,21 +1,35 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet, Image, SafeAreaView} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Button, Text} from 'react-native-paper';
+import {Button as PaperButton, Text, useTheme} from 'react-native-paper';
 import {TimePickerModal, DatePickerInput} from 'react-native-paper-dates';
 import {launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import uuid from 'react-native-uuid';
+import firestore from '@react-native-firebase/firestore';
 import Header from '../../components/Header';
 import TextInput from '../../components/Input/TextInput';
+import Button from '../../components/Buttons/Button';
+import {inputvalidator} from '../../utils/validators';
+import {AuthContext} from '../../context/AuthProvider';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {HomeParamList} from '../../navigation/types';
+import {useNavigation} from '@react-navigation/native';
+
+type NewStreamScreenProp = StackNavigationProp<HomeParamList, 'Stream'>;
 
 const NewStreamScreen = () => {
+  const {loggedInUser} = useContext(AuthContext);
+  const {colors} = useTheme();
+  const navigation = useNavigation<NewStreamScreenProp>();
   const [title, setTitle] = useState({value: '', error: ''});
   const [description, setDescription] = useState({value: '', error: ''});
-  const [coverUrl, setCoverUrl] = useState({value: '', error: ''});
+  const [coverUrl, setCoverUrl] = useState('');
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   const [time, setTime] = useState({hours: 0, minutes: 0});
+  const [isDateValid, setIsDateValid] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onDismiss = React.useCallback(() => {
     setTimePickerVisible(false);
@@ -29,8 +43,43 @@ const NewStreamScreen = () => {
     [setTimePickerVisible],
   );
 
+  const _onSubmit = async () => {
+    const titleError = inputvalidator(title.value);
+    const descriptionError = inputvalidator(description.value);
+
+    if (titleError || descriptionError || !date) {
+      setTitle({...title, error: titleError});
+      setDescription({...description, error: descriptionError});
+      setIsDateValid(false);
+      return;
+    }
+    try {
+      setIsSubmitting(true);
+      const streamId = uuid.v4().toString();
+      await firestore()
+        .collection('Streams')
+        .doc(streamId)
+        .set({
+          uid: streamId,
+          ownerId: loggedInUser?.uid,
+          title: title.value,
+          description: description.value,
+          coverUrl: coverUrl,
+          dateUtc:
+            date && new Date(date.getTime() + date.getTimezoneOffset() * 60000),
+          time: time,
+          createdAt: firestore.Timestamp.now(),
+        });
+      setIsSubmitting(false);
+      navigation.navigate('Stream', {uid: streamId});
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <>
+    <SafeAreaView style={{flex: 1}}>
       <KeyboardAwareScrollView
         style={styles.container}
         contentContainerStyle={{
@@ -67,6 +116,11 @@ const NewStreamScreen = () => {
           mode="outlined"
           // other react native TextInput props
         />
+        {!isDateValid ? (
+          <Text style={[styles.error, {color: colors.error}]}>
+            Please Select Date
+          </Text>
+        ) : null}
         <TimePickerModal
           visible={timePickerVisible}
           onDismiss={onDismiss}
@@ -81,12 +135,14 @@ const NewStreamScreen = () => {
           locale="en" // optional, default is automically detected by your system
         />
         <View style={styles.time}>
-          <Button onPress={() => setTimePickerVisible(true)}>Pick time</Button>
+          <PaperButton onPress={() => setTimePickerVisible(true)}>
+            Pick time
+          </PaperButton>
           <Text>
             {time.hours} : {time.minutes}
           </Text>
         </View>
-        <Button
+        <PaperButton
           onPress={async () => {
             try {
               const galleryRes = await launchImageLibrary({
@@ -98,30 +154,33 @@ const NewStreamScreen = () => {
                 galleryRes.assets && galleryRes.assets[0].fileName?.split('.');
               const imgExt =
                 imgNameArray && imgNameArray[imgNameArray.length - 1];
-              const reference = storage().ref(
-                title.value
-                  ? title.value + `-${uuid.v4()}` + `.${imgExt}`
-                  : uuid.v4().toString() + `.${imgExt}`,
-              );
+              const uploadPath = title.value
+                ? 'covers/' + title.value + `-${uuid.v4()}` + `.${imgExt}`
+                : 'covers/' + uuid.v4().toString() + `.${imgExt}`;
+              const reference = storage().ref(uploadPath);
               if (galleryRes.assets) {
-                const uploadTask = await reference.putFile(
-                  galleryRes.assets[0].uri as string,
-                );
-                uploadTask.task.on('state_changed', taskSnapshot => {
-                  console.log(
-                    `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
-                  );
-                });
-                console.log(galleryRes);
+                await reference.putFile(galleryRes.assets[0].uri as string);
+                const url = await storage().ref(uploadPath).getDownloadURL();
+                setCoverUrl(url);
               }
             } catch (error) {
               console.log(error);
             }
           }}>
           Upload Cover
+        </PaperButton>
+        {coverUrl.length > 0 && (
+          <Image source={{uri: coverUrl}} style={styles.image} />
+        )}
+        <Button
+          loading={isSubmitting}
+          style={styles.submit}
+          mode="contained"
+          onPress={_onSubmit}>
+          Submit
         </Button>
       </KeyboardAwareScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 
@@ -149,6 +208,19 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 180,
+    marginBottom: 12,
+  },
+  submit: {
+    marginBottom: 12,
+  },
+  error: {
+    fontSize: 14,
+    paddingHorizontal: 4,
+    paddingTop: 4,
   },
 });
 

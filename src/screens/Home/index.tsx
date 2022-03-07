@@ -2,10 +2,10 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {View, Text} from 'react-native';
-import {Portal, FAB} from 'react-native-paper';
+import {FAB} from 'react-native-paper';
 import {HomeParamList} from '../../navigation/types';
 
-type HomeScreenProp = StackNavigationProp<HomeParamList, 'NewStream'>;
+type HomeScreenProp = StackNavigationProp<HomeParamList, 'Home'>;
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenProp>();

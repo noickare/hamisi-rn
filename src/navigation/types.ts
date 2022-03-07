@@ -21,7 +21,7 @@ export type AuthNavProps<T extends keyof AuthParamList> = {
 
 export type StreamParamList = {
   Stream: {
-    name: string;
+    uid: string;
   };
   EditStream: {
     name: string;

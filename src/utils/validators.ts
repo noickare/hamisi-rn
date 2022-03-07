@@ -34,3 +34,11 @@ export const codevalidator = (code: string) => {
 
   return '';
 };
+
+export const inputvalidator = (name: string) => {
+  if (!name || name.length <= 0) {
+    return 'cannot be empty.';
+  }
+
+  return '';
+};

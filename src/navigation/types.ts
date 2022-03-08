@@ -21,6 +21,10 @@ export type AuthNavProps<T extends keyof AuthParamList> = {
 
 export type StreamParamList = {
   Stream: {
+    channel: string;
+    type: string;
+  };
+  Details: {
     uid: string;
   };
   EditStream: {

@@ -15,8 +15,14 @@ import {AuthContext} from '../../context/AuthProvider';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {HomeParamList} from '../../navigation/types';
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 
 type NewStreamScreenProp = StackNavigationProp<HomeParamList, 'Stream'>;
+
+type ITime = {
+  hours: number | undefined;
+  minutes: number | undefined;
+};
 
 const NewStreamScreen = () => {
   const {loggedInUser} = useContext(AuthContext);
@@ -27,8 +33,12 @@ const NewStreamScreen = () => {
   const [coverUrl, setCoverUrl] = useState('');
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
-  const [time, setTime] = useState({hours: 0, minutes: 0});
+  const [time, setTime] = useState<ITime>({
+    hours: undefined,
+    minutes: undefined,
+  });
   const [isDateValid, setIsDateValid] = useState(true);
+  const [isTimeValid, setIsTimeValid] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onDismiss = React.useCallback(() => {
@@ -47,29 +57,37 @@ const NewStreamScreen = () => {
     const titleError = inputvalidator(title.value);
     const descriptionError = inputvalidator(description.value);
 
-    if (titleError || descriptionError || !date) {
+    if (
+      titleError ||
+      descriptionError ||
+      !date ||
+      !time.hours ||
+      !time.minutes
+    ) {
       setTitle({...title, error: titleError});
       setDescription({...description, error: descriptionError});
       setIsDateValid(false);
+      setIsTimeValid(false);
       return;
     }
     try {
       setIsSubmitting(true);
       const streamId = uuid.v4().toString();
-      await firestore()
-        .collection('Streams')
-        .doc(streamId)
-        .set({
-          uid: streamId,
-          ownerId: loggedInUser?.uid,
-          title: title.value,
-          description: description.value,
-          coverUrl: coverUrl,
-          dateUtc:
-            date && new Date(date.getTime() + date.getTimezoneOffset() * 60000),
-          time: time,
-          createdAt: firestore.Timestamp.now(),
-        });
+      const mDate = moment(date).format('YYYY-MM-DD');
+      const dateTime = moment(
+        mDate + ' ' + `${time.hours}:${time.minutes}`,
+        'YYYY-MM-DD HH:mm',
+      );
+      const toSaveDate = moment.utc(dateTime).format();
+      await firestore().collection('Streams').doc(streamId).set({
+        uid: streamId,
+        ownerId: loggedInUser?.uid,
+        title: title.value,
+        description: description.value,
+        coverUrl: coverUrl,
+        dateUtc: toSaveDate,
+        createdAt: firestore.Timestamp.now(),
+      });
       setIsSubmitting(false);
       navigation.navigate('Stream', {uid: streamId});
     } catch (error) {
@@ -110,7 +128,9 @@ const NewStreamScreen = () => {
           locale="en"
           label="Date"
           value={date}
-          onChange={d => setDate(d)}
+          onChange={d => {
+            setDate(d);
+          }}
           inputMode="start"
           style={{width: '100%'}}
           mode="outlined"
@@ -138,10 +158,17 @@ const NewStreamScreen = () => {
           <PaperButton onPress={() => setTimePickerVisible(true)}>
             Pick time
           </PaperButton>
-          <Text>
-            {time.hours} : {time.minutes}
-          </Text>
+          {
+            <Text>
+              {time.hours && time.hours} : {time.minutes && time.minutes}
+            </Text>
+          }
         </View>
+        {!isTimeValid ? (
+          <Text style={[styles.error, {color: colors.error}]}>
+            Please Select Time
+          </Text>
+        ) : null}
         <PaperButton
           onPress={async () => {
             try {

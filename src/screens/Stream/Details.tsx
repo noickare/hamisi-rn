@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {IStream} from '../../models/stream';
 import Loader from '../../components/Loader';
 import {Text, useTheme} from 'react-native-paper';
-import {convertToLocalDate} from '../../utils/date';
+import moment from 'moment';
 
 const StreamDetailsScreen = ({route}: any) => {
   const [stream, setStream] = useState<IStream | null>(null);
@@ -44,13 +44,6 @@ const StreamDetailsScreen = ({route}: any) => {
   }
   console.log(stream);
 
-  if (stream) {
-    console.log(
-      'time',
-      convertToLocalDate(stream.dateUtc.seconds, stream.dateUtc.nanoseconds),
-    );
-  }
-
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <SafeAreaView style={{flex: 1}}>
@@ -58,10 +51,18 @@ const StreamDetailsScreen = ({route}: any) => {
           <Image source={{uri: stream?.coverUrl}} style={styles.image} />
           <Text style={styles.title}>{stream?.title}</Text>
           <View style={styles.date}>
-            <Icon name="calendar" size={30} color={colors.accent} />
-            {/* <Text>{stream?.dateUtc.toDateString()}</Text> */}
-            <Text>Time</Text>
+            <Icon name="calendar" size={30} color={colors.onSurface} />
+            <Text style={styles.dateString}>
+              {moment
+                .utc(stream?.dateUtc)
+                .local()
+                .format('MMMM Do, YYYY h:mma')}
+            </Text>
           </View>
+          <Text style={[styles.aboutHeader, {color: colors.primary}]}>
+            Description
+          </Text>
+          <Text style={styles.description}>{stream?.description}</Text>
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -88,6 +89,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+  },
+  dateString: {
+    fontSize: 20,
+    marginLeft: 10,
+  },
+  aboutHeader: {
+    fontSize: 25,
+    marginLeft: 10,
+  },
+  description: {
+    fontSize: 18,
+    marginLeft: 10,
   },
 });
 

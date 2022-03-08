@@ -1,14 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import {FAB} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import {HomeParamList} from '../../navigation/types';
@@ -58,7 +51,12 @@ const HomeScreen = () => {
         keyExtractor={stream => stream.uid}
       /> */}
       <TouchableOpacity
-        onPress={() => navigation.navigate('Stream', {uid: streams[0].uid})}
+        onPress={() =>
+          navigation.navigate('Stream', {
+            channel: streams[0].uid,
+            type: 'create',
+          })
+        }
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         {streams[0] && <Text>{streams[0].title}</Text>}
       </TouchableOpacity>

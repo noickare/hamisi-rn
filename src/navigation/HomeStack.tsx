@@ -5,6 +5,7 @@ import {AuthContext} from '../context/AuthProvider';
 import {Text, TouchableOpacity} from 'react-native';
 import EditStreamScreen from '../screens/Stream/Edit';
 import StreamDetailsScreen from '../screens/Stream/Details';
+import LiveStreamScreen from '../screens/Stream/Live';
 import HomeScreen from '../screens/Home';
 import NewStreamScreen from '../screens/Stream/New';
 
@@ -34,8 +35,13 @@ export const HomeStack: React.FC<HomeStackProps> = ({}) => {
         options={({route}) => ({
           headerTitle: `Stream: ${route.params.uid}`,
         })}
-        name="Stream"
+        name="Details"
         component={StreamDetailsScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Stream"
+        component={LiveStreamScreen}
       />
       <Stack.Screen
         name="Home"

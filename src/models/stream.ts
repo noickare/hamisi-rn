@@ -6,14 +6,7 @@ export type IStream = {
     title: string;
     description: string;
     coverUrl: string;
-    dateUtc: {
-        seconds: number;
-        nanoseconds: number;
-    };
-    time: {
-        hours: number;
-        minutes: number;
-    },
+    dateUtc: string;
     createdAt: {
         seconds: number;
         nanoseconds: number;

@@ -45,4 +45,15 @@ export default StyleSheet.create({
     paddingVertical: 5,
     color: '#0093E9',
   },
+  inputView: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    bottom: 0,
+    left: 5,
+    right: 5,
+  },
+  input: {
+    backgroundColor: 'rgba(0,0,0,0.4)', // 40% opaque
+    color: 'white',
+}
 });

@@ -28,10 +28,12 @@ interface State {
 }
 
 export default class App extends Component<Props, State> {
+  sheetRef: React.RefObject<unknown>;
   _engine?: RtcEngine;
 
   constructor(props: any) {
     super(props);
+    this.sheetRef = React.createRef();
     this.state = {
       appId: '0515f5012fc044dcb72d74d75a04ebfc',
       token: null,
@@ -50,6 +52,10 @@ export default class App extends Component<Props, State> {
 
   componentDidMount() {
     this.init();
+  }
+
+  componentWillUnmount() {
+    this.endCall();
   }
 
   /**
@@ -153,14 +159,14 @@ export default class App extends Component<Props, State> {
     return (
       <View style={styles.max}>
         <View style={styles.max}>
-          <View style={styles.buttonHolder}>
+          {/* <View style={styles.buttonHolder}>
             <TouchableOpacity onPress={this.startCall} style={styles.button}>
               <Text style={styles.buttonText}> Start Call </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.endCall} style={styles.button}>
               <Text style={styles.buttonText}> End Call </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           {this._renderVideos()}
         </View>
       </View>

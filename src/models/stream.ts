@@ -1,5 +1,3 @@
-import firestore from '@react-native-firebase/firestore';
-
 export type IStream = {
     uid: string;
     ownerId: string;
@@ -7,6 +5,7 @@ export type IStream = {
     description: string;
     coverUrl: string;
     dateUtc: string;
+    likesCount?: number;
     createdAt: {
         seconds: number;
         nanoseconds: number;

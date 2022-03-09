@@ -8,10 +8,9 @@ import {
   PermissionsAndroid,
   ActivityIndicator,
   Dimensions,
-  Share,
   TouchableOpacity,
   Platform,
-  FlatList,
+  ScrollView,
 } from 'react-native';
 
 import RtcEngine, {
@@ -28,7 +27,9 @@ import uuid from 'react-native-uuid';
 import TextInput from '../../components/Input/TextInput';
 import {HomeParamList} from '../../navigation/types';
 import {IComment} from '../../models/comment';
+import {IStream} from '../../models/stream';
 import {AuthContext} from '../../context/AuthProvider';
+import {abbreveateNumber} from '../../utils/abbreviateNumber';
 
 const dimensions = {
   width: Dimensions.get('window').width,
@@ -84,6 +85,9 @@ export default function Live(props: any) {
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState<IComment[]>([]);
   const [commentsLoading, setCommentsLoading] = useState(true);
+  const [isUserLiked, setIsUserLiked] = useState(false);
+  const [stream, setStream] = useState<IStream | null>(null);
+
   const AgoraEngine = useRef();
   const init = async () => {
     // @ts-ignore
@@ -138,6 +142,7 @@ export default function Live(props: any) {
       .collection('Streams')
       .doc(props.route.params.channel)
       .collection('Comments')
+      .orderBy('createdAt', 'asc')
       .onSnapshot(querySnapshot => {
         const commentsArray: IComment[] = [];
         querySnapshot.forEach(documentSnapshot => {
@@ -153,10 +158,40 @@ export default function Live(props: any) {
         // see next step
       });
 
+    const likedSubscriber = firestore()
+      .collection('Streams')
+      .doc(props.route.params.channel)
+      .collection('Likes')
+      .where('userId', '==', loggedInUser?.uid)
+      .onSnapshot(querySnapshot => {
+        const LikesArray: any = [];
+        querySnapshot.forEach(documentSnapshot => {
+          // console.log(documentSnapshot);
+          LikesArray.push({
+            ...(documentSnapshot.data() as IComment),
+            key: documentSnapshot.id,
+          });
+        });
+        if (LikesArray.length && LikesArray[0].isLiked) {
+          setIsUserLiked(true);
+        } else {
+          setIsUserLiked(false);
+        }
+      });
+
+    const streamSubscriber = firestore()
+      .collection('Streams')
+      .doc(props.route.params.channel)
+      .onSnapshot(querySnapshot => {
+        setStream(querySnapshot.data() as IStream);
+      });
+
     return () => {
       // @ts-ignore
       AgoraEngine.current.destroy();
       subscriber();
+      likedSubscriber();
+      streamSubscriber();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -185,7 +220,6 @@ export default function Live(props: any) {
 
   const renderComments = () => {
     return comments.map(comment => {
-      console.log('comment', comment.text);
       return (
         <View
           style={{
@@ -239,37 +273,24 @@ export default function Live(props: any) {
                 <Icon name="ios-camera-reverse-sharp" size={30} color="#fff" />
               </TouchableOpacity>
             )}
-            <TouchableOpacity
-              style={{position: 'absolute', right: 5, bottom: 250}}
-              onPress={() => {
-                console.log('resseed');
-              }}>
-              <Icon name="heart-outline" size={30} color="#fff" />
-              <Text style={{color: '#fff'}}>10.2k</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{position: 'absolute', right: 5, bottom: 180}}
-              onPress={() => {
-                console.log('pressed');
-                // @ts-ignore
-                // sheetRef.current.snapTo(0);
-              }}>
-              <Icon name="chatbubble-outline" size={30} color="#fff" />
-              <Text style={{color: '#fff'}}>1.5k</Text>
-            </TouchableOpacity>
             {commentsLoading ? (
               <ActivityIndicator />
             ) : (
-              <View
+              <ScrollView
+                contentContainerStyle={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
                 style={{
                   flex: 1,
-                  flexDirection: 'column',
+                  flexDirection: 'column-reverse',
                   position: 'absolute',
-                  bottom: 100,
+                  bottom: 80,
                   width: '100%',
+                  height: '30%',
                 }}>
                 {renderComments()}
-              </View>
+              </ScrollView>
             )}
             <View
               style={{
@@ -283,6 +304,66 @@ export default function Live(props: any) {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
+              <TouchableOpacity
+                style={{
+                  marginLeft: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                onPress={async () => {
+                  if (!isUserLiked) {
+                    const uid = uuid.v4() as string;
+                    await firestore()
+                      .collection('Streams')
+                      .doc(props.route.params.channel)
+                      .collection('Likes')
+                      .doc(loggedInUser?.uid)
+                      .set({
+                        uid: uid,
+                        userId: loggedInUser?.uid,
+                        user: loggedInUser,
+                        isLiked: true,
+                        createdAt: firestore.Timestamp.now(),
+                      });
+                    await firestore()
+                      .collection('Streams')
+                      .doc(props.route.params.channel)
+                      .update({
+                        likesCount: stream?.likesCount
+                          ? stream.likesCount + 1
+                          : 1,
+                      });
+                  } else {
+                    await firestore()
+                      .collection('Streams')
+                      .doc(props.route.params.channel)
+                      .collection('Likes')
+                      .doc(loggedInUser?.uid)
+                      .update({
+                        isLiked: false,
+                        updatedAt: firestore.Timestamp.now(),
+                      });
+                    await firestore()
+                      .collection('Streams')
+                      .doc(props.route.params.channel)
+                      .update({
+                        likesCount: stream?.likesCount
+                          ? stream.likesCount - 1
+                          : 0,
+                      });
+                  }
+                }}>
+                {isUserLiked ? (
+                  <Icon name="heart" size={30} color="red" />
+                ) : (
+                  <Icon name="heart-outline" size={30} color="red" />
+                )}
+                <Text style={{color: '#fff'}}>
+                  {stream?.likesCount && stream?.likesCount > 0
+                    ? abbreveateNumber(stream?.likesCount, 1)
+                    : ''}
+                </Text>
+              </TouchableOpacity>
               <TextInput
                 style={styles.inputStyle}
                 placeholder="Comment"
@@ -295,7 +376,6 @@ export default function Live(props: any) {
                 onPress={async () => {
                   if (commentText.length > 0) {
                     const uid = uuid.v4() as string;
-                    console.log('resseed', commentText);
                     await firestore()
                       .collection('Streams')
                       .doc(props.route.params.channel)
@@ -388,7 +468,8 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     backgroundColor: 'rgba(0,0,0,0.4)', // 40% opaque
-    width: '90%',
+    width: '80%',
+    // marginLeft: 20,
   },
   comment: {
     color: '#fff',
